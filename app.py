@@ -2,9 +2,9 @@ import os
 import torch
 import streamlit as st
 from PIL import Image
-from utils import load_image_list, load_weight
-from models.modules.utils.util import predict
-from pathlib import Path
+from utils import load_image_list
+import requests
+import io
 
 def main():
     # Get image lists
@@ -28,10 +28,6 @@ def main():
                 'Model weights',
                 os.listdir(f'assets/{model_option}')
             )
-            if weight_option:
-                # Load weight
-                model = load_weight(model_option, weight_option)
-                st.session_state.model = model
 
     # Show images
     ori_img, pred_img = st.columns([2, 3])
@@ -40,12 +36,19 @@ def main():
         with ori_img:
             st.image(img, caption=image_paths[image_slider-1])
         with pred_img:
-            # Image prediction
-            if 'model' in st.session_state:
-                model = st.session_state.model
-                prediction = predict(Path(image_paths[image_slider-1]), model)
-                # Draw box and text
-                st.image(prediction, caption=image_paths[image_slider-1])
+            if weight_option:
+                img_byte_arr = io.BytesIO()
+                img.save(img_byte_arr, format='jpeg')
+                res = requests.post('http://localhost:8000/',
+                                    files={'file': ("a.png", open(image_paths[image_slider-1], 'rb'))},
+                                    data={
+                                        'model': model_option,
+                                        'weight': weight_option
+                                    })
+                if res.status_code == 200:
+                    st.image(res.content, caption=image_paths[image_slider-1])
+
+
 if __name__ == '__main__':
     st.set_page_config(layout="wide")
     main()

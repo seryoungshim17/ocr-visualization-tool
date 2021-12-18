@@ -1,6 +1,7 @@
 # Custom - model pths, images
 assets/
 key.json
+db_util
 
 # Byte-compiled / optimized / DLL files
 __pycache__/*
