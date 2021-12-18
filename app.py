@@ -20,7 +20,7 @@ def main():
         # Select model
         model_option = st.selectbox(
             'Models',
-            ('OCRModel', 'TestModel')
+            ('OCRModel', )
         )
         if model_option:
 
