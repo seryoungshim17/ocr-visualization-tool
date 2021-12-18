@@ -1,7 +1,7 @@
 FROM python:3.8.12-slim-buster
 
 COPY . /app
-WORKDIR /app
+WORKDIR /app/front
 ENV PYTHONPATH=/app
 ENV PYTHONUNBUFFERED=1
 
