@@ -4,7 +4,7 @@ google-cloud-core==2.2.1
 google-cloud-storage==1.43.0
 opencv-python==4.5.4.60
 Pillow==8.4.0
-psycopg2==2.9.2
+psycopg2==2.7.7
 pydantic==1.8.2
 requests==2.26.0
 Shapely==1.8.0
