@@ -16,3 +16,10 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build the Docker image
       run: docker build . --file front/Dockerfile --tag my-image-name:$(date +%s)
+  
+  api:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image (FastAPI)
+      run: docker build . --file fastapi/Dockerfile --tag fastapi:$(date +%s)
